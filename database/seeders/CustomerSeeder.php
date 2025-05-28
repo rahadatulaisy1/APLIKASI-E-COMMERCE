@@ -2,24 +2,24 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Support\Str;
+use App\Models\Customer;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class UserSeeder extends Seeder
+class CustomerSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        User::create([
+        Customer::create([
+            'customer_id' => 'CUST001',
             'name' => 'Admin',
-            'username' => 'admin',
             'email' => 'admin@ifump.net',
-            'password' => Hash::make('password')
+            'password' => Hash::make('password'),
+            'phone' => '0895334400261',
+            'address' => 'pontianak'
         ]);
     }
 }

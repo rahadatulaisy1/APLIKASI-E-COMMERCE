@@ -11,15 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('order', function (Blueprint $table) {
-            $table->ulid('id')->primary();
-            $table->foreignUlid('customer_id')->constrained('customer')->cascadeOnDelete();
-            $table->foreignUlid('id_barang')->constrained('barang')->cascadeOnDelete();
+            Schema::create('orders', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            $table->string('order_id')->primary();
+            $table->string('customer_id');
             $table->date('order_date');
-            $table->integer('jumlah_barang');
-            $table->integer('total');
+            $table->decimal('total_amount', 10, 2);
+            $table->string('status');
             $table->timestamps();
+
+            $table->index('customer_id');
         });
+
     }
 
     /**
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('order');
+        Schema::dropIfExists('orders');
     }
 };

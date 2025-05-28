@@ -2,37 +2,28 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Concerns\HasUlids;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Order extends Model
+class Order extends Authenticatable
 {
-    use HasUlids;
-    
-    protected $table = 'order';
-    
+    use HasApiTokens, HasFactory, Notifiable;
+
+    protected $table = 'orders';
+    protected $primaryKey = 'order_id';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = [
+        'order_id',      
         'customer_id',
-        'id_barang',
         'order_date',
-        'jumlah_barang',
-        'total',
+        'total_amount',
+        'status'
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'customer_id' => 'string',
-            'id_barang' => 'string',
-        ];
-    }
+    protected $hidden = ['password'];
 
-    public function customer():BelongsTo{
-        return $this->belongsTo(Customer::class, 'customer_id');
-    }
-
-    public function barang():BelongsTo{
-        return $this->belongsTo(Barang::class, 'barang_id');
-    }
 }

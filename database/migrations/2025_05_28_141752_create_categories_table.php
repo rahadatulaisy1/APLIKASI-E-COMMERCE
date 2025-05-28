@@ -11,12 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('stock', function (Blueprint $table) {
-            $table->ulid('id')->primary();
-            $table->foreignUlid('id_barang')->constrained('barang')->cascadeOnDelete();
-            $table->integer('limit');
+            Schema::create('categories', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            $table->string('category_id')->primary();
+            $table->string('product_id');
+            $table->string('name');
+            $table->string('description');
             $table->timestamps();
+
+            $table->index('product_id');
         });
+
     }
 
     /**
@@ -24,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('stock');
+        Schema::dropIfExists('categories');
     }
 };

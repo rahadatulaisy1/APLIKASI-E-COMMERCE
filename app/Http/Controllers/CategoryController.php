@@ -2,71 +2,69 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Order;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Pest\ArchPresets\Custom;
 
-class OrderController extends Controller
+class CategoryController extends Controller
 {
     public function index()
     {
-        return response()->json(Order::all(), 200);
+        return response()->json(Category::all(), 200);
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'order_id' => 'required|string',
-            'customer_id' => 'required|string',
-            'order_date' => 'required|date',
-            'total_amount' => 'required|numeric',
-            'status' => 'required|string'
+            'category_id' => 'required|string',
+            'product_id' => 'required|string',
+            'name' => 'required|string',
+            'description' => 'required|string'
         ]);
         
-        Order::create($request->all());
+        Category::create($request->all());
 
         return response()->json(['message' => 'Data telah berhasil ditambahkan'], 201);
     }
 
     public function show($id)
     {
-        $order = Order::find($id);
-        if (!$order) {
+        $category = Category::find($id);
+        if (!$category) {
             return response()->json(['message' => 'Data tidak ditemukan'], 404);
         }
-        return response()->json($order, 200);
+        return response()->json($category, 200);
     }
 
     public function update(Request $request, $id)
     {
 
         $request->validate([
-            'order_id' => 'required|string',
-            'customer_id' => 'required|string',
-            'order_date' => 'required|date',
-            'total_amount' => 'required|numeric',
-            'status' => 'required|string'
+            'category_id' => 'required|string',
+            'product_id' => 'required|string',
+            'name' => 'required|string',
+            'description' => 'required|string'
         ]);
 
 
-        $order = Order::find($id);
-        if (!$order) {
+        $category = Category::find($id);
+        if (!$category) {
             return response()->json(['message' => 'Data tidak ditemukan'], 404);
         }
 
-        $order->update($request->all());
+        $category->update($request->all());
 
         return response()->json(['message' => 'Data telah berhasil diupdate']);
     }
 
     public function destroy($id)
     {
-        $order = Order::find($id);
-        if (!$order) {
+        $category = Category::find($id);
+        if (!$category) {
             return response()->json(['message' => 'Data tidak ditemukan'], 404);
         }
 
-        $order->delete();
+        $category->delete();
 
         return response()->json(['message' => 'Data telah berhasil dihapus']);
     }

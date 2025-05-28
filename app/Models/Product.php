@@ -7,22 +7,22 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Customer extends Authenticatable
+class Product extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $table = 'customers';
-    protected $primaryKey = 'customer_id';
+    protected $table = 'products';
+    protected $primaryKey = 'product_id';
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
-        'customer_id',      
+        'product_id',      
         'name',
-        'email',
-        'password',
-        'phone',
-        'address'
+        'description',
+        'price',
+        'stock',
+        'category_id',
     ];
 
     protected $hidden = ['password'];
